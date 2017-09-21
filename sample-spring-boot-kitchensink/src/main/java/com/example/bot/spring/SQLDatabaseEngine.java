@@ -11,8 +11,26 @@ import java.net.URI;
 public class SQLDatabaseEngine extends DatabaseEngine {
 	@Override
 	String search(String text) throws Exception {
+		String result = null;
+		try {
+		Connection connection = this.getConnection();
+		PreparedStatement stmt = connection.prepareStatement(
+				"SELECT response FROM message WHERE input = '" + text +"'");
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			result = rs.getString(1);
+		}
+		rs.close();
+		stmt.close();
+		connection.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
 		//Write your code here
-		return null;
+		if (result != null)
+			return result;
+		throw new Exception("NOT FOUND");
 	}
 	
 	
