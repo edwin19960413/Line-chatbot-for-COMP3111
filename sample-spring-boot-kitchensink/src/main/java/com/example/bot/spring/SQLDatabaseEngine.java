@@ -11,8 +11,29 @@ import java.net.URI;
 public class SQLDatabaseEngine extends DatabaseEngine {
 	@Override
 	String search(String text) throws Exception {
+		String result = null;
+		try {
+		String username = "programmer";
+		String password = "iamaprogrammer";
+		String dbUrl = "jdbc:postgresql://localhost:5432/chatbotDB";
+		Connection connection = DriverManager.getConnection(dbUrl, username,password);
+		PreparedStatement stmt = connection.prepareStatement(
+				"SELECT response FROM message WHERE input = text);
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			result = rs.getstring(1);
+		}
+		rs.close();
+		stmt.close();
+		connection.close();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
 		//Write your code here
-		return null;
+		if (result != null)
+			return result;
+		throw new Exception("NOT FOUND");
 	}
 	
 	
