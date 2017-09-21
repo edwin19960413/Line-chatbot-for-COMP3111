@@ -30,7 +30,6 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		//Write your code here
 		if (result != null)
 			return result;
-		//return result;
 		throw new Exception("NOT FOUND");
 	}
 	
