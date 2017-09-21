@@ -13,15 +13,12 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	String search(String text) throws Exception {
 		String result = null;
 		try {
-		String username = "programmer";
-		String password = "iamaprogrammer";
-		String dbUrl = "jdbc:postgresql://localhost:5432/chatbotDB";
-		Connection connection = DriverManager.getConnection(dbUrl, username,password);
+		Connection connection = this.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(
-				"SELECT response FROM message WHERE input = text);
+				"SELECT response FROM message WHERE input = '" + text +"'");
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
-			result = rs.getstring(1);
+			result = rs.getString(1);
 		}
 		rs.close();
 		stmt.close();
@@ -33,6 +30,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		//Write your code here
 		if (result != null)
 			return result;
+		//return result;
 		throw new Exception("NOT FOUND");
 	}
 	
