@@ -15,7 +15,7 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		try {
 		Connection connection = this.getConnection();
 		PreparedStatement stmt = connection.prepareStatement(
-				"SELECT response FROM message WHERE keyword = '" + text +"'");
+				"SELECT response FROM message WHERE keyword = '" + text.toLowerCase() +"'");
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
 			result = rs.getString(1);
